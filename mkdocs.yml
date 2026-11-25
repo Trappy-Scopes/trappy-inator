@@ -1,0 +1,76 @@
+# mkdocs.yml -- house theme as in Trappy-Scopes/trappyscopes
+site_name: Trappy-Scopes/trappy-inator
+site_description: "The template and showcase project every Trappy-Scopes instrument starts from."
+site_url: https://trappy-scopes.github.io/trappy-inator/
+repo_url: https://github.com/Trappy-Scopes/trappy-inator
+repo_name: trappy-inator
+edit_uri: ""
+copyright: "Copyright © 2026 Yatharth Bhasin (Trappy-Scopes Project), Living Physics Group, GIMM Oeiras · Hardware CERN-OHL-S-2.0 · Software GPL-3.0-or-later · Docs CC-BY-SA-4.0"
+
+nav:
+  - Home: index.md
+  - Assembly instructions: assembly.md
+  - Bill of materials: bom.md
+  - Disassembly instructions: disassembly.md
+  - Playground: playground.md
+  - How it works: how-it-works.md
+  - All Trappy-Scopes projects: https://trappy-scopes.github.io
+
+plugins:
+  - search
+  - mermaid2
+
+extra:
+  homepage: https://trappy-scopes.github.io/trappy-inator/
+
+theme:
+  name: material
+  logo: assets/tsicon.png
+  favicon: assets/tsicon.png
+  palette:
+    # dark mode as default
+    - scheme: slate
+      primary: cyan
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+    - scheme: default
+      primary: cyan
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.indexes
+    - toc.integrate
+    - search.highlight
+    - content.code.annotate
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - path: https://cdn.jsdelivr.net/npm/@google/model-viewer@4.4.0/dist/model-viewer.min.js
+    type: module
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.snippets:
+      base_path: ["."]
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - attr_list
+  - md_in_html
+  - tables

@@ -1,0 +1,55 @@
+# Build the models with OpenSCAD and publish the website to the gh-pages branch.
+# main is only ever written by people; generated files go to gh-pages.
+name: Build and publish site
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 3 * * *"     # nightly rebuild, so changes to the shared look reach the site
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    env:
+      OPENSCAD_VERSION: 2026.11-RC1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # part revisions come from git history
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install OpenSCAD
+        run: |
+          sudo apt-get update -q && sudo apt-get install -yq xvfb libfuse2 libegl1 libgl1 libglu1-mesa
+          base=https://files.openscad.org/rc
+          app=OpenSCAD-${OPENSCAD_VERSION}-x86_64.AppImage
+          curl -sSfL "$base/$app" -o "$app"
+          curl -sSfL "$base/$app.sha256" -o "$app.sha256"
+          sha256sum -c "$app.sha256"
+          chmod +x "$app" && ./"$app" --appimage-extract > /dev/null
+          echo "OPENSCAD=$PWD/squashfs-root/AppRun" >> "$GITHUB_ENV"
+
+      - name: Build models
+        run: xvfb-run -a tools/build_models.sh
+
+      - name: Fetch OpenSCAD for the Playground
+        run: tools/fetch_openscad_wasm.sh
+
+      - name: Build and publish site
+        run: |
+          pip install -r requirements-docs.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdocs gh-deploy --force
