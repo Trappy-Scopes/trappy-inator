@@ -8,4 +8,4 @@ This website is the showcase for that template. Every Trappy-Scopes instrument k
 
 To show the whole workflow on something small, this project contains a single model: a to-scale facsimile of *Chlamydomonas reinhardtii*, the green alga at the centre of our work. Its cell body, eyespot and two flagella are separate parts that together form one assembly.
 
-In the **Playground** you can change every parameter of the cell, from its shape to the length of each flagellum, and see the result in 3D straight away. OpenSCAD runs in your own browser, so the model you download is generated from exactly the parameters you chose. **How it works** explains how the files, renders and citations are produced.
+The **Catalog** shows each part with its files. In the **Playground** you can change every parameter of the cell, from its shape to the length of each flagellum, and see the result in 3D straight away. OpenSCAD runs in your own browser, so the model you download is generated from exactly the parameters you chose. The **Notes** explain how the files, renders and citations are produced, and how to build your own project from this template.

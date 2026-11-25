@@ -9,11 +9,20 @@ copyright: "Copyright © 2026 Yatharth Bhasin (Trappy-Scopes Project), Living Ph
 
 nav:
   - Home: index.md
+  - Catalog: catalog.md
   - Assembly instructions: assembly.md
   - Bill of materials: bom.md
   - Disassembly instructions: disassembly.md
   - Playground: playground.md
-  - How it works: how-it-works.md
+  - Notes:
+      - notes/index.md
+      - How it works: notes/how-it-works.md
+      - GitHub Actions: notes/github-actions.md
+      - Project layout: notes/project-layout.md
+      - Make your own: notes/make-your-own.md
+      - Porting existing projects: notes/porting.md
+      - Versions and citations: notes/versions-and-citations.md
+      - Licences and credits: notes/licences-and-credits.md
   - All Trappy-Scopes projects: https://trappy-scopes.github.io
 
 plugins:
