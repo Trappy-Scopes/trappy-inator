@@ -164,6 +164,6 @@ if (part == "assembly") {
     color(eyespot_colour)   eyespot_part();
     color(flagellum_colour) flagella_part();
 }
-else if (part == "cell")     cell_part();
-else if (part == "eyespot")  eyespot_part();
-else if (part == "flagella") flagella_part();
+else if (part == "cell")     color(cell_colour)      cell_part();
+else if (part == "eyespot")  color(eyespot_colour)   eyespot_part();
+else if (part == "flagella") color(flagellum_colour) flagella_part();

@@ -30,6 +30,22 @@
 .ti-busy  { background: rgba(255, 170, 0, .18); color: #ffab00; }
 .ti-error { background: rgba(255, 82, 82, .18); color: #ff5252; }
 
+/* ---- catalog: 3D view and text side by side, alternating left and right ---- */
+.ti-cat-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.6rem; align-items: center;
+  padding: 1.2rem 0; border-bottom: .05rem solid var(--md-default-fg-color--lightest);
+}
+.ti-cat-row:nth-child(even) .ti-viewer { order: 2; }
+.ti-cat-row .ti-viewer { margin: 0; }
+.ti-cat-row .ti-viewer model-viewer { height: 22rem; min-height: 0; }
+.md-typeset .ti-cat-text h3 { margin-top: 0; }
+.ti-cat-meta, .ti-cat-text p:not(.ti-cat-links) { font-size: .72rem; }
+.ti-cat-meta { color: var(--md-default-fg-color--light); }
+@media screen and (max-width: 59.9375em) {
+  .ti-cat-row { grid-template-columns: minmax(0, 1fr); }
+  .ti-cat-row:nth-child(even) .ti-viewer { order: 0; }
+}
+
 /* ---- playground form ---- */
 .ti-toolbar { display: flex; align-items: center; gap: .6rem; font-size: .7rem; color: var(--md-default-fg-color--light); margin-bottom: .4rem; }
 .ti-toolbar #pg-changed { flex: 1; }
