@@ -1,0 +1,10 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "wild-type": {},
+        "deflagellated": {
+            "cis_flagellum_length": "0",
+            "trans_flagellum_length": "0"
+        }
+    }
+}

@@ -1,0 +1,69 @@
+/* House colours, as in Trappy-Scopes/trappyscopes */
+[data-md-color-scheme="trappytheme"] {
+  --md-primary-fg-color:        #01BDD6;
+  --md-primary-fg-color--light: #F0E4E4;
+  --md-primary-fg-color--dark:  #000000;
+}
+
+/* ---- 3D viewers (showcase and playground) ---- */
+.ti-viewer { position: relative; margin: 1em 0; }
+.ti-viewer model-viewer {
+  width: 100%; height: 60vh; min-height: 380px;
+  background-color: var(--md-code-bg-color); border-radius: .2rem;
+  --poster-color: var(--md-code-bg-color);
+}
+.ti-poster { position: absolute; inset: 0; background: var(--md-code-bg-color); }
+.ti-poster img { width: 100%; height: 100%; object-fit: contain; }
+.ti-reveal { position: absolute; left: 50%; bottom: 1.2rem; transform: translateX(-50%); }
+.ti-legend { position: absolute; left: .6rem; bottom: .5rem; }
+.ti-tag {
+  display: inline-block; font-size: .64rem; padding: .1rem .6rem; margin: 0 .2rem .2rem 0;
+  border-radius: .12rem; background: var(--md-default-fg-color--lightest); color: var(--md-default-fg-color--light);
+  cursor: default;
+}
+.ti-tag:hover { color: var(--md-accent-fg-color); }
+.ti-meta { font-size: .7rem; color: var(--md-default-fg-color--light); }
+.ti-status, .ti-rev-corner { position: absolute; font-size: .64rem; padding: .1rem .6rem; border-radius: .12rem; }
+.ti-status { left: .6rem; top: .6rem; }
+.ti-rev-corner { right: .6rem; bottom: .5rem; font-family: var(--md-code-font-family); color: var(--md-default-fg-color--lighter); }
+.ti-ok    { background: rgba(0, 200, 83, .18);  color: #00c853; }
+.ti-busy  { background: rgba(255, 170, 0, .18); color: #ffab00; }
+.ti-error { background: rgba(255, 82, 82, .18); color: #ff5252; }
+
+/* ---- playground form ---- */
+.ti-toolbar { display: flex; align-items: center; gap: .6rem; font-size: .7rem; color: var(--md-default-fg-color--light); margin-bottom: .4rem; }
+.ti-toolbar #pg-changed { flex: 1; }
+.ti-toolbar select, .ti-row select, .ti-row input[type=text] {
+  background: var(--md-code-bg-color); color: var(--md-default-fg-color);
+  border: 1px solid var(--md-default-fg-color--lightest); border-radius: .1rem; font: inherit; padding: .2rem .4rem;
+}
+.md-typeset .ti-toolbar .md-button { padding: .3em 1em; font-size: .65rem; }
+.ti-tabs { display: flex; gap: 1.2em; border-bottom: .05rem solid var(--md-default-fg-color--lightest); margin-bottom: .4rem; overflow-x: auto; }
+.ti-tab {
+  font: inherit; font-size: .64rem; font-weight: 700; color: var(--md-default-fg-color--light);
+  background: none; border: none; border-bottom: .1rem solid transparent; padding: .5em 0; cursor: pointer; white-space: nowrap;
+}
+.ti-tab:hover { color: var(--md-accent-fg-color); }
+.ti-tab.ti-on { color: var(--md-typeset-a-color); border-bottom-color: var(--md-typeset-a-color); }
+.ti-row {
+  display: grid; grid-template-columns: minmax(8rem, 13rem) minmax(0, 1fr) 3.2rem; align-items: center;
+  gap: .8rem; font-size: .7rem; color: var(--md-default-fg-color--light); margin: .35rem 0;
+}
+.ti-label small { display: block; font-size: .6rem; color: var(--md-default-fg-color--lighter); line-height: 1.3; }
+.ti-row.ti-changed .ti-label { color: var(--md-default-fg-color); }
+.ti-row input[type=range] { width: 100%; accent-color: var(--md-primary-fg-color); }
+.ti-row input[type=color] { width: 3rem; height: 1.4rem; border: none; background: none; padding: 0; }
+.ti-row output {
+  font-family: var(--md-code-font-family); font-size: .62rem; text-align: center;
+  background: var(--md-code-bg-color); border-radius: .1rem; padding: .05rem 0;
+}
+.ti-link { position: relative; background: var(--md-code-bg-color); border-radius: .1rem; padding: .7em 2.4em .7em .9em; word-break: break-all; }
+.ti-link code { background: none; font-size: .7rem; }
+.ti-link .md-clipboard { position: absolute; top: .5em; right: .5em; }
+.ti-downloads { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 1em 0; }
+.md-typeset .ti-downloads .md-button { padding: .45em 1.2em; font-size: .65rem; }
+#pg-download-status { font-size: .65rem; color: var(--md-default-fg-color--light); }
+@media screen and (max-width: 44.9375em) {
+  .ti-row { grid-template-columns: minmax(0, 1fr) 3.2rem; }
+  .ti-row .ti-label { grid-column: 1 / -1; }
+}
