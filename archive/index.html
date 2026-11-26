@@ -1025,12 +1025,13 @@
 
 
 <h1 id="version-archive">Version archive<a class="headerlink" href="#version-archive" title="Permanent link">&para;</a></h1>
-<p>Render any committed version of a part from its address, <code>project:part@revision</code>, for example
-<code>trappy-inator:chlamydomonas@9fccbcf</code> (the project can be left out for this one: <code>chlamydomonas@9fccbcf</code>). The
+<p>Render any committed version of a part from its address, <code>project:model/part@revision</code>, for example
+<code>trappy-inator:chlamydomonas/cell@9fccbcf</code> for the cell body alone, or <code>trappy-inator:chlamydomonas@9fccbcf</code> for
+the whole assembly. Inside this project the project can be left out: <code>chlamydomonas/cell@9fccbcf</code>. The
 page fetches that exact <code>.scad</code> file, plus anything it includes, uses or imports from the same commit, and renders
 it with OpenSCAD in your browser. Nothing is stored on this website: the repository's own history is the archive.</p>
 <form id="va-form" class="ti-va-form" markdown="0">
-  <input id="va-url" type="text" required placeholder="chlamydomonas@9fccbcf" aria-label="Part address">
+  <input id="va-url" type="text" required placeholder="chlamydomonas/cell@9fccbcf" aria-label="Part address">
   <button class="md-button md-button--primary" type="submit">Render</button>
 </form>
 
@@ -1060,7 +1061,7 @@ there is a revision, and its short hash (the seven characters on the right) goes
 <h2 id="what-to-expect">What to expect<a class="headerlink" href="#what-to-expect" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The part renders with the default values it had in that revision. The download name carries the commit, for
-  example <code>chlamydomonas@9fccbcf.stl</code>.</li>
+  example <code>chlamydomonas_cell@9fccbcf.stl</code>.</li>
 <li>The model is shown in grey; colours from <code>color()</code> are kept in the 3MF.</li>
 <li>The repository must be public, because your browser fetches the files directly from GitHub.</li>
 <li>Old files run on today's OpenSCAD (the version in the Playground). Features that were removed since may give an

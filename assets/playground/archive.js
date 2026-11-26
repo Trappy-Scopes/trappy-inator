@@ -10,20 +10,22 @@ let worker, jobId = 0, loaded = null;
 
 function status(text, kind) { const s = $("va-status"); s.textContent = text; s.className = "ti-status ti-" + kind; }
 
-// A part address is <project>:<part>@<revision>, e.g. trappy-inator:chlamydomonas@9fccbcf. The project is a
-// repository of the Trappy-Scopes organisation (this one if left out); the part lives at cad/parts/<part>/<part>.scad.
+// A part address is <project>:<model>[/<part>]@<revision>, e.g. trappy-inator:chlamydomonas/cell@9fccbcf. The
+// project is a repository of the Trappy-Scopes organisation (this one if left out); the model lives at
+// cad/parts/<model>/<model>.scad; the optional part is passed as its `part` parameter (whole model if left out).
 const ORG = "Trappy-Scopes", PROJECT = "trappy-inator";
 const partFile = (part) => `cad/parts/${part}/${part}.scad`;
-const ADDRESS = /^(?:([\w.-]+):)?([\w.-]+)@([0-9a-f]{7,40})$/i;
+const ADDRESS = /^(?:([\w.-]+):)?([\w.-]+)(?:\/([\w.-]+))?@([0-9a-f]{7,40})$/i;
 
 // Also accepted, for files outside that layout: a GitHub link, which becomes
 // github.com/<owner>/<repo>/blob/<ref>/<path>  ->  raw.githubusercontent.com/<owner>/<repo>/<ref>/<path>
 function normalise(input) {
   const a = input.trim().match(ADDRESS);
   if (a) {
-    const project = a[1] || PROJECT, root = `https://raw.githubusercontent.com/${ORG}/${project}/${a[3]}/`;
-    return { url: root + partFile(a[2]), repo: `${ORG}/${project}`, ref: a[3], path: partFile(a[2]), root,
-             address: `${project}:${a[2]}@${a[3]}` };
+    const [, p, model, part, rev] = a, project = p || PROJECT;
+    const root = `https://raw.githubusercontent.com/${ORG}/${project}/${rev}/`;
+    return { url: root + partFile(model), repo: `${ORG}/${project}`, ref: rev, path: partFile(model), root, part,
+             address: `${project}:${model}${part ? "/" + part : ""}@${rev}` };
   }
   const url = new URL(input.trim());
   let m = url.hostname === "github.com" && url.pathname.match(/^\/([^/]+)\/([^/]+)\/(?:blob|raw)\/([^/]+)\/(.+)$/);
@@ -76,7 +78,8 @@ function run(jobs) {
   });
 }
 
-const stem = () => loaded.info.path.split("/").pop().replace(/\.scad$/i, "") + (loaded.info.ref ? "@" + loaded.info.ref : "");
+const defines = () => (loaded.info.part ? [`part="${loaded.info.part}"`] : []);
+const stem = () => loaded.info.path.split("/").pop().replace(/\.scad$/i, "") + (loaded.info.part ? "_" + loaded.info.part : "") + (loaded.info.ref ? "@" + loaded.info.ref : "");
 
 async function open(input) {
   $("va-downloads").hidden = true;
@@ -104,8 +107,8 @@ async function open(input) {
     $("va-source").textContent = source;
     status("Rendering with OpenSCAD…", "busy");
     const t0 = performance.now();
-    const stl = (await run([{ name: "model", format: "binstl", defines: [] }])).model;
-    if (!stl) { status("The file renders nothing with its default parameters", "error"); return; }
+    const stl = (await run([{ name: "model", format: "binstl", defines: defines() }])).model;
+    if (!stl) { status(loaded.info.part ? `No part "${loaded.info.part}" in this version` : "The file renders nothing with its default parameters", "error"); return; }
     loaded.stl = stl;
     const old = viewer.src;
     viewer.src = URL.createObjectURL(stlsToGlb([{ name: "model", stl, colour: "#9E9E9E" }]));
@@ -125,7 +128,7 @@ $("va-form").onsubmit = (e) => { e.preventDefault(); open($("va-url").value); };
 $("va-stl").onclick = () => save(loaded.stl, stem() + ".stl");
 $("va-3mf").onclick = async () => {
   const note = $("va-download-status"); note.textContent = "Preparing…";
-  try { save((await run([{ name: "3mf", format: "3mf", options: ["export-3mf/color-mode=model"], defines: [] }]))["3mf"], stem() + ".3mf"); note.textContent = ""; }
+  try { save((await run([{ name: "3mf", format: "3mf", options: ["export-3mf/color-mode=model"], defines: defines() }]))["3mf"], stem() + ".3mf"); note.textContent = ""; }
   catch (e) { note.textContent = "Could not build the file: " + e.message.split("\n")[0]; }
 };
 
