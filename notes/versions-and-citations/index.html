@@ -336,6 +336,25 @@
   
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../../archive/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Version archive
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
     
   
   
@@ -587,6 +606,33 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Version archive
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -626,7 +672,7 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -648,14 +694,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -917,6 +963,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#rendering-an-old-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendering an old version
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1059,6 +1116,12 @@ https://trappy-scopes.github.io/trappy-inator/playground/?cis_flagellum_length=8
 <h2 id="releases-planned">Releases (planned)<a class="headerlink" href="#releases-planned" title="Permanent link">&para;</a></h2>
 <p>Each release of a project will be archived on Zenodo, which gives it a DOI. A paper can then cite the release DOI
 together with the part name and revision.</p>
+<h2 id="rendering-an-old-version">Rendering an old version<a class="headerlink" href="#rendering-an-old-version" title="Permanent link">&para;</a></h2>
+<p>The <a href="../../archive/">Version archive</a> tab renders any committed version of a part. Paste a GitHub link to the
+<code>.scad</code> file at that commit, and the page fetches the file and everything it includes, uses or imports from the
+same commit, then renders it in the browser with the same OpenSCAD as the Playground. Nothing extra is stored or
+built for this: the repository's history is the archive, so every version ever committed stays available as long
+as the repository is public.</p>
 
 
 
