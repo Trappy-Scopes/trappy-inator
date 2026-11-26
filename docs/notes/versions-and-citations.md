@@ -36,3 +36,11 @@ The Playground shows this line under **Cite this configuration**, ready to copy.
 
 Each release of a project will be archived on Zenodo, which gives it a DOI. A paper can then cite the release DOI
 together with the part name and revision.
+
+## Rendering an old version
+
+The [Version archive](../archive.md) tab renders any committed version of a part. Paste a GitHub link to the
+`.scad` file at that commit, and the page fetches the file and everything it includes, uses or imports from the
+same commit, then renders it in the browser with the same OpenSCAD as the Playground. Nothing extra is stored or
+built for this: the repository's history is the archive, so every version ever committed stays available as long
+as the repository is public.

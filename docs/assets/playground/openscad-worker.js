@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Runs the official OpenSCAD WebAssembly build (files.openscad.org) off the main thread.
-// Message in:  {id, source, jobs: [{name, defines: ["name=value", ...], format: "binstl" | "3mf", options: []}]}
+// Message in:  {id, source, main?, files?: {path: text}, jobs: [{name, defines: ["name=value", ...], format: "binstl" | "3mf", options: []}]}
 // Message out: {id, ok, files: {name: Uint8Array}, log} or {id, ok: false, error, log}
 import OpenSCAD from "./openscad/openscad.js";
 
@@ -12,7 +12,13 @@ async function wasmModule() {
   return compiled;
 }
 
-async function runOnce(source, job, log) {
+function writeFile(fs, path, text) {
+  const parts = path.split("/").filter(Boolean);
+  for (let i = 1; i < parts.length; i++) { try { fs.mkdir("/" + parts.slice(0, i).join("/")); } catch (e) { /* exists */ } }
+  fs.writeFile(path, text);
+}
+
+async function runOnce(source, job, log, main = "/model.scad", extra = {}) {
   const module = await wasmModule();
   const instance = await OpenSCAD({
     noInitialRun: true,
@@ -23,9 +29,10 @@ async function runOnce(source, job, log) {
       return {};
     },
   });
-  instance.FS.writeFile("/model.scad", source);
+  for (const [path, text] of Object.entries(extra)) writeFile(instance.FS, path, text);
+  writeFile(instance.FS, main, source);
   const out = job.format === "3mf" ? "/out.3mf" : "/out.stl";
-  const args = ["/model.scad", "-o", out, "--backend=manifold"];
+  const args = [main, "-o", out, "--backend=manifold"];
   if (job.format === "binstl") args.push("--export-format", "binstl");
   for (const o of job.options || []) args.push("-O", o);
   for (const d of job.defines) args.push("-D", d);
@@ -43,7 +50,7 @@ self.onmessage = async ({ data }) => {
   const log = [];
   try {
     const files = {};
-    for (const job of data.jobs) files[job.name] = await runOnce(data.source, job, log);
+    for (const job of data.jobs) files[job.name] = await runOnce(data.source, job, log, data.main, data.files);
     self.postMessage({ id: data.id, ok: true, files, log }, Object.values(files).filter(Boolean).map((f) => f.buffer));
   } catch (e) {
     self.postMessage({ id: data.id, ok: false, error: String(e.message || e), log });

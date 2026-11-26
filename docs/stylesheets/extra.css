@@ -78,7 +78,15 @@
 .ti-link .md-clipboard { position: absolute; top: .5em; right: .5em; }
 .ti-downloads { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: 1em 0; }
 .md-typeset .ti-downloads .md-button { padding: .45em 1.2em; font-size: .65rem; }
-#pg-download-status { font-size: .65rem; color: var(--md-default-fg-color--light); }
+.ti-va-form { display: flex; gap: .5rem; margin: 1em 0; }
+.ti-va-form input {
+  flex: 1; min-width: 0; font: inherit; font-size: .7rem; padding: .45em .8em; color: var(--md-default-fg-color);
+  background: var(--md-code-bg-color); border: 1px solid var(--md-default-fg-color--lightest); border-radius: .1rem;
+}
+.md-typeset .ti-va-form .md-button { padding: .45em 1.2em; font-size: .65rem; }
+.ti-va-missing { color: #ff5252; }
+#va-source { max-height: 30rem; overflow: auto; font-size: .62rem; }
+#va-download-status, #pg-download-status { font-size: .65rem; color: var(--md-default-fg-color--light); }
 @media screen and (max-width: 44.9375em) {
   .ti-row { grid-template-columns: minmax(0, 1fr) 3.2rem; }
   .ti-row .ti-label { grid-column: 1 / -1; }
