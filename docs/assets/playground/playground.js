@@ -171,7 +171,7 @@ async function render(quality) {
   try {
     const t0 = performance.now();
     const files = await run(CONFIG.parts.map((p) => ({ name: p.name, format: "binstl", defines: defines([`part="${p.name}"`, ...extra]) })));
-    const glb = stlsToGlb(CONFIG.parts.map((p) => ({ name: p.name, stl: files[p.name], colour: state.values[p.colour] })));
+    const glb = stlsToGlb(CONFIG.parts.filter((p) => files[p.name]).map((p) => ({ name: p.name, stl: files[p.name], colour: state.values[p.colour] })));
     const orbit = viewer.getCameraOrbit?.();
     if (orbit) viewer.cameraOrbit = `${orbit.theta}rad ${orbit.phi}rad ${orbit.radius}m`;
     const old = viewer.src; viewer.src = URL.createObjectURL(glb);
@@ -210,6 +210,7 @@ document.querySelectorAll("[data-download]").forEach((b) => (b.onclick = async (
         state.latest = { files: await run(CONFIG.parts.map((p) => ({ name: p.name, format: "binstl", defines: defines([`part="${p.name}"`]) }))), key: JSON.stringify(defines()) };
       }
       data = state.latest.files[what]; file = `${CONFIG.name}_${what}.stl`;
+      if (!data) { note.textContent = `No ${what} with these settings, so there is nothing to download.`; return; }
     }
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([data])); a.download = file; a.click();
     note.textContent = "";

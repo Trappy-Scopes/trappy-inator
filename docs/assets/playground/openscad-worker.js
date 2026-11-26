@@ -33,6 +33,8 @@ async function runOnce(source, job, log) {
   try { code = instance.callMain(args); } catch (e) { code = typeof e?.status === "number" ? e.status : 1; }
   let data = null;
   try { data = instance.FS.readFile(out); } catch (e) { /* no output */ }
+  // A part can legitimately be empty (e.g. flagella of length 0): report it as no file, not an error.
+  if (!data && log.some((l) => /top level object is empty/i.test(l))) return null;
   if (code !== 0 || !data) throw new Error(log.filter((l) => /ERROR|WARNING|assert/i.test(l)).join("\n") || "OpenSCAD failed");
   return data;
 }
@@ -42,7 +44,7 @@ self.onmessage = async ({ data }) => {
   try {
     const files = {};
     for (const job of data.jobs) files[job.name] = await runOnce(data.source, job, log);
-    self.postMessage({ id: data.id, ok: true, files, log }, Object.values(files).map((f) => f.buffer));
+    self.postMessage({ id: data.id, ok: true, files, log }, Object.values(files).filter(Boolean).map((f) => f.buffer));
   } catch (e) {
     self.postMessage({ id: data.id, ok: false, error: String(e.message || e), log });
   }
