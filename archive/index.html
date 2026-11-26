@@ -669,10 +669,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#finding-the-link-to-an-old-version" class="md-nav__link">
+  <a href="#finding-an-address" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Finding the link to an old version
+        Finding an address
       
     </span>
   </a>
@@ -1025,18 +1025,19 @@
 
 
 <h1 id="version-archive">Version archive<a class="headerlink" href="#version-archive" title="Permanent link">&para;</a></h1>
-<p>Render any committed version of a part. Paste a link to a <code>.scad</code> file and the page fetches that exact file, plus
-anything it includes, uses or imports from the same commit, and renders it with OpenSCAD in your browser. Nothing
-is stored on this website: the repository's own history is the archive.</p>
+<p>Render any committed version of a part from its address, <code>project:part@revision</code>, for example
+<code>trappy-inator:chlamydomonas@9fccbcf</code> (the project can be left out for this one: <code>chlamydomonas@9fccbcf</code>). The
+page fetches that exact <code>.scad</code> file, plus anything it includes, uses or imports from the same commit, and renders
+it with OpenSCAD in your browser. Nothing is stored on this website: the repository's own history is the archive.</p>
 <form id="va-form" class="ti-va-form" markdown="0">
-  <input id="va-url" type="url" required placeholder="https://github.com/Trappy-Scopes/trappy-inator/blob/9fccbcf/cad/parts/chlamydomonas/chlamydomonas.scad" aria-label="Link to a .scad file">
+  <input id="va-url" type="text" required placeholder="chlamydomonas@9fccbcf" aria-label="Part address">
   <button class="md-button md-button--primary" type="submit">Render</button>
 </form>
 
 <div class="ti-viewer" markdown="0">
   <model-viewer id="va-viewer" camera-controls touch-action="pan-y" camera-orbit="200deg 75deg auto"
       shadow-intensity="0.8" exposure="1.1" tone-mapping="neutral" alt="3D model of the archived part"></model-viewer>
-  <span id="va-status" class="ti-status ti-ok">Paste a link above</span>
+  <span id="va-status" class="ti-status ti-ok">Type a part address above</span>
 </div>
 
 <p id="va-info" class="ti-meta" markdown="0"></p>
@@ -1051,18 +1052,14 @@ is stored on this website: the repository's own history is the archive.</p>
 <summary>Source of this version</summary>
 <p><pre id="va-source" markdown="0"></pre></p>
 </details>
-<h2 id="finding-the-link-to-an-old-version">Finding the link to an old version<a class="headerlink" href="#finding-the-link-to-an-old-version" title="Permanent link">&para;</a></h2>
-<ol>
-<li>On GitHub, open the part's <code>.scad</code> file and click <strong>History</strong>.</li>
-<li>Click the commit you want, then <strong>View file</strong> (or the <code>&lt;&gt;</code> button) on that file.</li>
-<li>Copy the address. It contains the commit, for example <code>.../blob/9fccbcf/cad/...</code>, so it always points to that
-   version.</li>
-</ol>
-<p>On any file page, pressing <kbd>y</kbd> swaps a branch name in the address for the current commit. A link to a branch
-such as <code>main</code> works too, but it follows the branch, so it shows whatever is newest.</p>
+<h2 id="finding-an-address">Finding an address<a class="headerlink" href="#finding-an-address" title="Permanent link">&para;</a></h2>
+<p>Every part shows its address in the <a href="../catalog/">Catalog</a>, and the Playground shows it under <strong>Cite this
+configuration</strong>. For older revisions, open the part's folder on GitHub and click <strong>History</strong>: each commit listed
+there is a revision, and its short hash (the seven characters on the right) goes after the <code>@</code>.</p>
+<p>A GitHub link to any <code>.scad</code> file also works, for files outside the usual <code>cad/parts/&lt;part&gt;/</code> layout.</p>
 <h2 id="what-to-expect">What to expect<a class="headerlink" href="#what-to-expect" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The file renders with the default values it had in that commit. The download name carries the commit, for
+<li>The part renders with the default values it had in that revision. The download name carries the commit, for
   example <code>chlamydomonas@9fccbcf.stl</code>.</li>
 <li>The model is shown in grey; colours from <code>color()</code> are kept in the 3MF.</li>
 <li>The repository must be public, because your browser fetches the files directly from GitHub.</li>

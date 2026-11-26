@@ -1095,13 +1095,17 @@
 </tr>
 </tbody>
 </table>
+<p>Name and revision together make the part's <strong>address</strong>: <code>trappy-inator:chlamydomonas@a1b2c3d</code>. The address is
+enough to find the exact file: the project is a repository of the Trappy-Scopes organisation, the part lives at
+<code>cad/parts/&lt;part&gt;/&lt;part&gt;.scad</code>, and the revision is the commit. Inside one project the project can be left out
+(<code>chlamydomonas@a1b2c3d</code>). Projects use only the <code>main</code> branch, so a revision is always a commit on it.</p>
 <p>The revision is read from git when the website is built and shown under each model. It covers only the part's own
 folder, so a part that has not changed keeps its revision while the rest of the repository moves on, and its STL
 stays byte-identical. This works the same for parametric parts (<code>cad/parts/&lt;part&gt;/</code>) and STL parts
 (<code>cad/frozen/&lt;part&gt;/</code>).</p>
 <h2 id="citing-a-part">Citing a part<a class="headerlink" href="#citing-a-part" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>Chlamydomonas facsimile (<code>trappy-inator:chlamydomonas</code>, rev a1b2c3d),
+<p>Chlamydomonas facsimile (<code>trappy-inator:chlamydomonas@a1b2c3d</code>),
 https://github.com/Trappy-Scopes/trappy-inator/tree/a1b2c3d/cad/parts/chlamydomonas</p>
 </blockquote>
 <p>The link points at the exact commit, so it always shows the files as they were.</p>
@@ -1109,7 +1113,7 @@ https://github.com/Trappy-Scopes/trappy-inator/tree/a1b2c3d/cad/parts/chlamydomo
 <p>A Playground link records only the parameters you changed. Together with the part name and revision it describes
 exactly one model:</p>
 <blockquote>
-<p>Chlamydomonas facsimile (<code>trappy-inator:chlamydomonas</code>, rev a1b2c3d), configured at
+<p>Chlamydomonas facsimile (<code>trappy-inator:chlamydomonas@a1b2c3d</code>), configured at
 https://trappy-scopes.github.io/trappy-inator/playground/?cis_flagellum_length=8</p>
 </blockquote>
 <p>The Playground shows this line under <strong>Cite this configuration</strong>, ready to copy.</p>
@@ -1117,11 +1121,14 @@ https://trappy-scopes.github.io/trappy-inator/playground/?cis_flagellum_length=8
 <p>Each release of a project will be archived on Zenodo, which gives it a DOI. A paper can then cite the release DOI
 together with the part name and revision.</p>
 <h2 id="rendering-an-old-version">Rendering an old version<a class="headerlink" href="#rendering-an-old-version" title="Permanent link">&para;</a></h2>
-<p>The <a href="../../archive/">Version archive</a> tab renders any committed version of a part. Paste a GitHub link to the
-<code>.scad</code> file at that commit, and the page fetches the file and everything it includes, uses or imports from the
-same commit, then renders it in the browser with the same OpenSCAD as the Playground. Nothing extra is stored or
-built for this: the repository's history is the archive, so every version ever committed stays available as long
-as the repository is public.</p>
+<p>The <a href="../../archive/">Version archive</a> tab renders any committed version of a part from its address. Type
+<code>chlamydomonas@a1b2c3d</code> and the page fetches that exact <code>.scad</code> from GitHub, along with anything it includes, uses
+or imports from the same commit, then renders it in the browser with the same OpenSCAD as the Playground. Nothing
+extra is stored or built for this: the repository's history is the archive, so every version ever committed stays
+available as long as the repository is public. A GitHub link to a <code>.scad</code> file also works, for files outside the
+usual layout.</p>
+<p>STL parts (<code>cad/frozen/</code>) have addresses too, but there is nothing to render; their files at a revision are at
+<code>https://github.com/Trappy-Scopes/&lt;project&gt;/tree/&lt;revision&gt;/cad/frozen/&lt;part&gt;</code>.</p>
 
 
 
