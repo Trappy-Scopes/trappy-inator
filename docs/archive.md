@@ -1,12 +1,13 @@
 # Version archive
 
-Render any committed version of a part from its address, `project:part@revision`, for example
-`trappy-inator:chlamydomonas@9fccbcf` (the project can be left out for this one: `chlamydomonas@9fccbcf`). The
+Render any committed version of a part from its address, `project:model/part@revision`, for example
+`trappy-inator:chlamydomonas/cell@9fccbcf` for the cell body alone, or `trappy-inator:chlamydomonas@9fccbcf` for
+the whole assembly. Inside this project the project can be left out: `chlamydomonas/cell@9fccbcf`. The
 page fetches that exact `.scad` file, plus anything it includes, uses or imports from the same commit, and renders
 it with OpenSCAD in your browser. Nothing is stored on this website: the repository's own history is the archive.
 
 <form id="va-form" class="ti-va-form" markdown="0">
-  <input id="va-url" type="text" required placeholder="chlamydomonas@9fccbcf" aria-label="Part address">
+  <input id="va-url" type="text" required placeholder="chlamydomonas/cell@9fccbcf" aria-label="Part address">
   <button class="md-button md-button--primary" type="submit">Render</button>
 </form>
 
@@ -38,7 +39,7 @@ A GitHub link to any `.scad` file also works, for files outside the usual `cad/p
 ## What to expect
 
 - The part renders with the default values it had in that revision. The download name carries the commit, for
-  example `chlamydomonas@9fccbcf.stl`.
+  example `chlamydomonas_cell@9fccbcf.stl`.
 - The model is shown in grey; colours from `color()` are kept in the 3MF.
 - The repository must be public, because your browser fetches the files directly from GitHub.
 - Old files run on today's OpenSCAD (the version in the Playground). Features that were removed since may give an

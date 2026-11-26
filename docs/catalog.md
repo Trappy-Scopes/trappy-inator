@@ -19,7 +19,7 @@ Every part of the project, with its 3D view, description and files. Drag a model
       <p>The two flagella (cilia), about 0.25 µm thick and 10–12 µm long, leaving the cell on either side of the
       papilla. The cis flagellum is the one nearest the eyespot. Both beat in one plane; the model shows them at the
       start of the power stroke.</p>
-      <p class="ti-cat-meta"><code>trappy-inator:chlamydomonas@<span class="ti-rev">…</span></code> · part <code>flagella</code></p>
+      <p class="ti-cat-meta"><code>trappy-inator:chlamydomonas/flagella@<span class="ti-rev">…</span></code></p>
       <p>Tunable: length of each flagellum, diameter, exit spacing, exit angle, bend.</p>
       <p class="ti-cat-links"><a href="../generated/models/chlamydomonas_flagella.stl" download>STL</a> ·
         <a href="../playground/">Open in the Playground</a></p>
@@ -39,7 +39,7 @@ Every part of the project, with its 3D view, description and files. Drag a model
       <p>The orange-red light sensor: layers of carotenoid globules, about 0.6–1.5 µm² in area, near the cell
       equator on the side of the cis flagellum. In the model it stands slightly proud of the surface so it can be seen
       and printed in its own colour.</p>
-      <p class="ti-cat-meta"><code>trappy-inator:chlamydomonas@<span class="ti-rev">…</span></code> · part <code>eyespot</code></p>
+      <p class="ti-cat-meta"><code>trappy-inator:chlamydomonas/eyespot@<span class="ti-rev">…</span></code></p>
       <p>Tunable: length, width, thickness, angle from the beat plane, height from the equator, tilt.</p>
       <p class="ti-cat-links"><a href="../generated/models/chlamydomonas_eyespot.stl" download>STL</a> ·
         <a href="../playground/">Open in the Playground</a></p>
@@ -58,7 +58,7 @@ Every part of the project, with its 3D view, description and files. Drag a model
       <h3>Cell body</h3>
       <p>A prolate cell about 10 µm long and 8 µm wide, optionally egg-shaped and narrower towards the flagella, with
       the papilla between the two flagella. The eyespot sits in a pocket on its surface.</p>
-      <p class="ti-cat-meta"><code>trappy-inator:chlamydomonas@<span class="ti-rev">…</span></code> · part <code>cell</code></p>
+      <p class="ti-cat-meta"><code>trappy-inator:chlamydomonas/cell@<span class="ti-rev">…</span></code></p>
       <p>Tunable: length, width, anterior taper, papilla height and width.</p>
       <p class="ti-cat-links"><a href="../generated/models/chlamydomonas_cell.stl" download>STL</a> ·
         <a href="../playground/">Open in the Playground</a></p>
