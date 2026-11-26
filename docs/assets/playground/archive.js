@@ -10,8 +10,21 @@ let worker, jobId = 0, loaded = null;
 
 function status(text, kind) { const s = $("va-status"); s.textContent = text; s.className = "ti-status ti-" + kind; }
 
+// A part address is <project>:<part>@<revision>, e.g. trappy-inator:chlamydomonas@9fccbcf. The project is a
+// repository of the Trappy-Scopes organisation (this one if left out); the part lives at cad/parts/<part>/<part>.scad.
+const ORG = "Trappy-Scopes", PROJECT = "trappy-inator";
+const partFile = (part) => `cad/parts/${part}/${part}.scad`;
+const ADDRESS = /^(?:([\w.-]+):)?([\w.-]+)@([0-9a-f]{7,40})$/i;
+
+// Also accepted, for files outside that layout: a GitHub link, which becomes
 // github.com/<owner>/<repo>/blob/<ref>/<path>  ->  raw.githubusercontent.com/<owner>/<repo>/<ref>/<path>
 function normalise(input) {
+  const a = input.trim().match(ADDRESS);
+  if (a) {
+    const project = a[1] || PROJECT, root = `https://raw.githubusercontent.com/${ORG}/${project}/${a[3]}/`;
+    return { url: root + partFile(a[2]), repo: `${ORG}/${project}`, ref: a[3], path: partFile(a[2]), root,
+             address: `${project}:${a[2]}@${a[3]}` };
+  }
   const url = new URL(input.trim());
   let m = url.hostname === "github.com" && url.pathname.match(/^\/([^/]+)\/([^/]+)\/(?:blob|raw)\/([^/]+)\/(.+)$/);
   if (m) return { url: `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4]}`, repo: `${m[1]}/${m[2]}`, ref: m[3], path: m[4],
@@ -69,16 +82,21 @@ async function open(input) {
   $("va-downloads").hidden = true;
   $("va-info").textContent = "";
   let info;
-  try { info = normalise(input); } catch (e) { status("That is not a link", "error"); return; }
+  try { info = normalise(input); } catch (e) { status("Not a part address like chlamydomonas@9fccbcf, or a link", "error"); return; }
   if (!/\.scad$/i.test(info.path)) { status("The link must point to a .scad file", "error"); return; }
-  history.replaceState(null, "", "?url=" + encodeURIComponent(input.trim()));
+  history.replaceState(null, "", "?part=" + encodeURIComponent(input.trim()));
   try {
     status("Fetching the file…", "busy");
-    const source = await get(info.url);
+    let source;
+    try { source = await get(info.url); }
+    catch (e) {
+      status(info.address ? `${info.address} not found: no such project, part or revision (or the repository is private)` : "Could not fetch the file: " + e.message, "error");
+      return;
+    }
     const { files, missing, main } = await collect(info, source);
     loaded = { info, source, files, main };
     const pinned = /^[0-9a-f]{7,40}$/i.test(info.ref);
-    $("va-info").innerHTML =
+    $("va-info").innerHTML = (info.address ? `<code>${info.address}</code> · ` : "") +
       `<strong>${info.path}</strong> from <code>${info.repo}</code>` +
       (info.ref ? (pinned ? ` at commit <code>${info.ref}</code>` : ` on <code>${info.ref}</code> (a branch or tag moves over time; use a link to a commit to pin one version)`) : "") +
       ` · ${Object.keys(files).length} file${Object.keys(files).length > 1 ? "s" : ""}` +
@@ -111,5 +129,5 @@ $("va-3mf").onclick = async () => {
   catch (e) { note.textContent = "Could not build the file: " + e.message.split("\n")[0]; }
 };
 
-const start = new URLSearchParams(location.search).get("url");
+const query = new URLSearchParams(location.search), start = query.get("part") || query.get("url");
 if (start) { $("va-url").value = start; open(start); }

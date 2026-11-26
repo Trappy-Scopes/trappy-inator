@@ -138,7 +138,7 @@ function refresh() {
   const link = location.origin + location.pathname + (query ? "?" + query : "");
   $("pg-link").textContent = link;
   history.replaceState(null, "", query ? "?" + query : location.pathname);
-  $("pg-cite").textContent = `${CONFIG.id} · rev ${state.revision} · ${link}`;
+  $("pg-cite").textContent = `${CONFIG.id}@${state.revision} · ${link}`;
 }
 
 function defines(extra = []) {

@@ -1,18 +1,19 @@
 # Version archive
 
-Render any committed version of a part. Paste a link to a `.scad` file and the page fetches that exact file, plus
-anything it includes, uses or imports from the same commit, and renders it with OpenSCAD in your browser. Nothing
-is stored on this website: the repository's own history is the archive.
+Render any committed version of a part from its address, `project:part@revision`, for example
+`trappy-inator:chlamydomonas@9fccbcf` (the project can be left out for this one: `chlamydomonas@9fccbcf`). The
+page fetches that exact `.scad` file, plus anything it includes, uses or imports from the same commit, and renders
+it with OpenSCAD in your browser. Nothing is stored on this website: the repository's own history is the archive.
 
 <form id="va-form" class="ti-va-form" markdown="0">
-  <input id="va-url" type="url" required placeholder="https://github.com/Trappy-Scopes/trappy-inator/blob/9fccbcf/cad/parts/chlamydomonas/chlamydomonas.scad" aria-label="Link to a .scad file">
+  <input id="va-url" type="text" required placeholder="chlamydomonas@9fccbcf" aria-label="Part address">
   <button class="md-button md-button--primary" type="submit">Render</button>
 </form>
 
 <div class="ti-viewer" markdown="0">
   <model-viewer id="va-viewer" camera-controls touch-action="pan-y" camera-orbit="200deg 75deg auto"
       shadow-intensity="0.8" exposure="1.1" tone-mapping="neutral" alt="3D model of the archived part"></model-viewer>
-  <span id="va-status" class="ti-status ti-ok">Paste a link above</span>
+  <span id="va-status" class="ti-status ti-ok">Type a part address above</span>
 </div>
 
 <p id="va-info" class="ti-meta" markdown="0"></p>
@@ -26,19 +27,17 @@ is stored on this website: the repository's own history is the archive.
 ??? note "Source of this version"
     <pre id="va-source" markdown="0"></pre>
 
-## Finding the link to an old version
+## Finding an address
 
-1. On GitHub, open the part's `.scad` file and click **History**.
-2. Click the commit you want, then **View file** (or the `<>` button) on that file.
-3. Copy the address. It contains the commit, for example `.../blob/9fccbcf/cad/...`, so it always points to that
-   version.
+Every part shows its address in the [Catalog](catalog.md), and the Playground shows it under **Cite this
+configuration**. For older revisions, open the part's folder on GitHub and click **History**: each commit listed
+there is a revision, and its short hash (the seven characters on the right) goes after the `@`.
 
-On any file page, pressing <kbd>y</kbd> swaps a branch name in the address for the current commit. A link to a branch
-such as `main` works too, but it follows the branch, so it shows whatever is newest.
+A GitHub link to any `.scad` file also works, for files outside the usual `cad/parts/<part>/` layout.
 
 ## What to expect
 
-- The file renders with the default values it had in that commit. The download name carries the commit, for
+- The part renders with the default values it had in that revision. The download name carries the commit, for
   example `chlamydomonas@9fccbcf.stl`.
 - The model is shown in grey; colours from `color()` are kept in the 3MF.
 - The repository must be public, because your browser fetches the files directly from GitHub.

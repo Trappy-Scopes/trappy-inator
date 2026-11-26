@@ -23,7 +23,7 @@ The whole assembly with its default parameters. Drag to rotate, scroll to zoom, 
 </div>
 
 <p class="ti-meta" markdown="0">
-  <code>trappy-inator:chlamydomonas</code> · rev <code class="ti-rev">…</code> ·
+  <code>trappy-inator:chlamydomonas@<span class="ti-rev">…</span></code> ·
   <a href="generated/models/chlamydomonas_cell.stl" download>Cell body STL</a> ·
   <a href="generated/models/chlamydomonas_eyespot.stl" download>Eyespot STL</a> ·
   <a href="generated/models/chlamydomonas_flagella.stl" download>Flagella STL</a> ·
